@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 
 const Login = () => {
 
-    const onChange = () => {
+    // state for sign in
+    const [user, saveUser] = useState({
+        email: '',
+        password: ''
+    });
 
+    // extract the user
+    const { email, password } = user;
+
+    const onChange = (e) => {
+        saveUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    // when the user wants to sign in
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        // validate that there are no empty fields
+
+
+        // pass to the action
     }
 
     return (
         <div className="form-user">
             <div className="container-form shadow-dark">
                 <h1>Sign in</h1>
-                <form>
+                <form
+                    onSubmit={onSubmit}>
                     <div className="field-form">
                         <label htmlfor="email">Email</label>
                         <input
@@ -18,6 +42,7 @@ const Login = () => {
                             id="email"
                             name="email"
                             placeholder="Email"
+                            value={email}
                             onChange={onChange}
                         />
                     </div>
@@ -28,17 +53,21 @@ const Login = () => {
                             id="password"
                             name="password"
                             placeholder="Password"
+                            value={password}
                             onChange={onChange}
                         />
                     </div>
                     <div className="field-form">
                         <input
-                        type="submit"
-                        className="btn btn-primary btn-block"
-                        value="Sign in"
+                            type="submit"
+                            className="btn btn-primary btn-block"
+                            value="Sign in"
                         />
                     </div>
                 </form>
+                <Link to="/new-account" className="link-account">
+                    Get an account
+                </Link>
             </div>
         </div>
     );
