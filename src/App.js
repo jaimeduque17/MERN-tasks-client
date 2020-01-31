@@ -4,7 +4,7 @@ import Login from './components/auth/Login';
 import NewAccount from './components/auth/NewAccount';
 import Projects from './components/projects/Projects';
 
-import ProjectState from './components/projects/projectState';
+import ProjectState from './context/projects/projectState';
 
 function App() {
   return (
