@@ -6,7 +6,7 @@ const TaskList = () => {
     
     // Extract projects of the initial state
     const projectsContext = useContext(ProjectContext);
-    const { project } = projectsContext;
+    const { project, deleteProject } = projectsContext;
 
     // if doesn't selected project
     if(!project) return <h2>Select a project</h2>;
@@ -20,6 +20,11 @@ const TaskList = () => {
         { name: 'Choose Ecommerce Platform', state: false },
         { name: 'Choose Hosting', state: true }
     ];
+
+    // Delete a project
+    const onClickDelete = () => {
+        deleteProject(actualProject.id);
+    }
 
     return (
         <Fragment>
@@ -36,6 +41,7 @@ const TaskList = () => {
                 <button
                     type="button"
                     className="btn btn-delete"
+                    onClick={onClickDelete}
                 >Delete Project &times;</button>
             </ul>
         </Fragment>

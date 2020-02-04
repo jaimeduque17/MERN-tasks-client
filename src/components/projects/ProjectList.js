@@ -14,7 +14,7 @@ const ProjectList = () => {
         }, []);
 
         // Check if projects have content
-        if(projects.length === 0) return null;
+        if(projects.length === 0) return <p>Doesn't have projects, create one</p>;
 
         return (
             <ul className="list-projects">
