@@ -10,7 +10,7 @@ const Task = ({ task }) => {
 
     // Get the function of the task context
     const tasksContext = useContext(taskContext);
-    const { deleteTask, getTasks } = tasksContext;
+    const { deleteTask, getTasks, changeStateTask } = tasksContext;
 
     // Extract the project
     const [projectActual] = project;
@@ -21,6 +21,16 @@ const Task = ({ task }) => {
         getTasks(projectActual.id);
     }
 
+    // Function to modify task state
+    const changeState = task => {
+        if(task.state) {
+            task.state = false;
+        } else {
+            task.state = true;
+        }
+        changeStateTask(task);
+    }
+
     return (
         <li className="task shadow">
             <p>{task.name}</p>
@@ -29,10 +39,12 @@ const Task = ({ task }) => {
                     ? (<button
                         type="button"
                         className="complete"
+                        onClick={() => changeState(task)}
                     >Complete</button>)
                     : (<button
                         type="button"
                         className="incomplete"
+                        onClick={() => changeState(task)}
                     >Incomplete</button>)
                 }
             </div>
