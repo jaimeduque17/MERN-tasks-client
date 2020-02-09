@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import ProjectContext from '../../context/projects/projectContext';
 import taskContext from '../../context/tasks/taskContext';
 
@@ -10,7 +10,18 @@ const FormTask = () => {
 
     // Get the function of the task context
     const tasksContext = useContext(taskContext);
-    const { addTask, validateTask, errortask, getTasks } = tasksContext;
+    const { taskselected, errortask, addTask, validateTask, getTasks } = tasksContext;
+
+    // Effect for a selected task
+    useEffect(() => {
+        if(taskselected !== null) {
+            saveTask(taskselected)
+        } else {
+            saveTask({
+                name: ''
+            })
+        }
+    }, [taskselected])
 
     // Form state
     const [task, saveTask] = useState({
@@ -78,7 +89,7 @@ const FormTask = () => {
                     <input
                         type="submit"
                         className="btn btn-primary btn-submit btn-block"
-                        value="Add Task"
+                        value={taskselected ? 'Edit Task' : 'Add Task'}
                     />
                 </div>
             </form>
