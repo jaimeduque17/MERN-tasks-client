@@ -10,11 +10,11 @@ const FormTask = () => {
 
     // Get the function of the task context
     const tasksContext = useContext(taskContext);
-    const { taskselected, errortask, addTask, validateTask, getTasks } = tasksContext;
+    const { taskselected, errortask, addTask, validateTask, getTasks, updateTask, cleanTask } = tasksContext;
 
     // Effect for a selected task
     useEffect(() => {
-        if(taskselected !== null) {
+        if (taskselected !== null) {
             saveTask(taskselected)
         } else {
             saveTask({
@@ -49,17 +49,24 @@ const FormTask = () => {
         e.preventDefault();
 
         // Validate
-        if(name.trim() === '') {
+        if (name.trim() === '') {
             validateTask();
             return;
         }
 
-        // Pass the validation
+        // Check if is edition or is a new task
+        if (taskselected === null) {
+            // Add the new task to the task state
+            task.projectId = actualProject.id;
+            task.state = false;
+            addTask(task);
+        } else {
+            // Update existent task
+            updateTask(task);
 
-        // Add the new task to the task state
-        task.projectId = actualProject.id;
-        task.state = false;
-        addTask(task);
+            // Delete selected task of the state
+            cleanTask();
+        }
 
         // Get and filter the actual project tasks
         getTasks(actualProject.id);
