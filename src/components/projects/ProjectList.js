@@ -10,7 +10,7 @@ const ProjectList = () => {
 
         // Get projects when charge the component
         useEffect(() => {
-            getProjects()
+            getProjects();
         }, []);
 
         // Check if projects have content

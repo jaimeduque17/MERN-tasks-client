@@ -2,24 +2,24 @@ import React, { useReducer } from 'react';
 import TaskContext from './taskContext';
 import TaskReducer from './taskReducer';
 
-import { TASKS_PROJECT, ADD_TASK, VALIDATE_TASK } from '../../types';
+import { TASKS_PROJECT, ADD_TASK, VALIDATE_TASK, DELETE_TASK } from '../../types';
 
 const TaskState = props => {
     const initialState = {
         tasks: [
-            { name: 'Choose Platform', state: true, projectId: 1 },
-            { name: 'Choose Colors', state: false, projectId: 2 },
-            { name: 'Choose Ecommerce Platform', state: false, projectId: 3 },
-            { name: 'Choose Hosting', state: true, projectId: 4 },
-            { name: 'Choose Platform', state: true, projectId: 1 },
-            { name: 'Choose Colors', state: false, projectId: 2 },
-            { name: 'Choose Ecommerce Platform', state: false, projectId: 3 },
-            { name: 'Choose Platform', state: true, projectId: 4 },
-            { name: 'Choose Colors', state: false, projectId: 1 },
-            { name: 'Choose Ecommerce Platform', state: false, projectId: 2 },
-            { name: 'Choose Platform', state: true, projectId: 3 },
-            { name: 'Choose Colors', state: false, projectId: 4 },
-            { name: 'Choose Ecommerce Platform', state: false, projectId: 3 },
+            { id: 1, name: 'Choose Platform', state: true, projectId: 1 },
+            { id: 2, name: 'Choose Colors', state: false, projectId: 2 },
+            { id: 3, name: 'Choose Ecommerce Platform', state: false, projectId: 3 },
+            { id: 4, name: 'Choose Hosting', state: true, projectId: 4 },
+            { id: 5, name: 'Choose Platform', state: true, projectId: 1 },
+            { id: 6, name: 'Choose Colors', state: false, projectId: 2 },
+            { id: 7, name: 'Choose Ecommerce Platform', state: false, projectId: 3 },
+            { id: 8, name: 'Choose Platform', state: true, projectId: 4 },
+            { id: 9, name: 'Choose Colors', state: false, projectId: 1 },
+            { id: 10, name: 'Choose Ecommerce Platform', state: false, projectId: 2 },
+            { id: 11, name: 'Choose Platform', state: true, projectId: 3 },
+            { id: 12, name: 'Choose Colors', state: false, projectId: 4 },
+            { id: 13, name: 'Choose Ecommerce Platform', state: false, projectId: 3 },
         ],
         tasksproject: null,
         errortask: false
@@ -54,6 +54,14 @@ const TaskState = props => {
         })
     }
 
+    // Delete task by Id
+    const deleteTask = id => {
+        dispatch({
+            type: DELETE_TASK,
+            payload: id
+        })
+    }
+
     return (
         <TaskContext.Provider
             value={{
@@ -62,7 +70,8 @@ const TaskState = props => {
                 tasksproject: state.tasksproject,
                 getTasks,
                 addTask,
-                validateTask
+                validateTask,
+                deleteTask
             }}
         >
             {props.children}
