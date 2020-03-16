@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alerts/alertContext';
 
 const NewAccount = () => {
+
+    // Extract values of the context
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext;
 
     // state for sign in
     const [user, saveUser] = useState({
@@ -26,11 +31,13 @@ const NewAccount = () => {
         e.preventDefault();
 
         // validate that there are no empty fields
-
+        if(name.trim() === '' || email.trim() === '' || password.trim() === '' || confirm.trim() === '') {
+            showAlert('All fields are required', 'alert-error');
+        }
 
         // Password lenght >= 6 characters
-        
-        
+
+
         // check two passwords
 
 
@@ -39,6 +46,7 @@ const NewAccount = () => {
 
     return (
         <div className="form-user">
+            {alert ? (<div className={`alert ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="container-form shadow-dark">
                 <h1>Sign up</h1>
                 <form
