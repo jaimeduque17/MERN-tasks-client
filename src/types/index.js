@@ -15,4 +15,11 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 export const CLEAN_TASK = 'CLEAN_TASK';
 
 export const SHOW_ALERT = 'SHOW_ALERT';
-export const HIDE_ALERT = 'SHOW_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
+
+export const SIGNUP_SUCCESSFUL = 'SIGNUP_SUCCESSFUL';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+export const GET_USER = 'GET_USER';
+export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGOUT = 'LOGOUT';
