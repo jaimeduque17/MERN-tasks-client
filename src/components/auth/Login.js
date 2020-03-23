@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alerts/alertContext';
 import AuthContext from '../../context/authentication/authContext';
 
-const Login = () => {
+const Login = (props) => {
 
     // Extract values of the context
     const alertContext = useContext(AlertContext);
@@ -11,6 +11,16 @@ const Login = () => {
 
     const authContext = useContext(AuthContext);
     const { message, auth, logIn } = authContext;
+
+    // If the password or user does not exist
+    useEffect(() => {
+        if (auth) {
+            props.history.push('/projects');
+        }
+        if (message) {
+            showAlert(message.msg, message.category);
+        }
+    }, [message, auth, props.history]);
 
     // state for sign in
     const [user, saveUser] = useState({
@@ -38,7 +48,7 @@ const Login = () => {
         }
 
         // pass to the action
-        logIn({email, password});
+        logIn({ email, password });
     }
 
     return (
