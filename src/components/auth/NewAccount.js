@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alerts/alertContext';
 import AuthContext from '../../context/authentication/authContext';
-import AuthState from '../../context/authentication/authState';
 
 const NewAccount = (props) => {
 
@@ -15,7 +14,7 @@ const NewAccount = (props) => {
 
     // If the sign up is duplicated
     useEffect(() => {
-        if (auth) {
+        if (!!auth) {
             props.history.push('/projects');
         }
         if(message) {
@@ -130,7 +129,7 @@ const NewAccount = (props) => {
                         />
                     </div>
                 </form>
-                <Link to="/new-account" className="link-account">
+                <Link to={'/'} className="link-account">
                     Sign in
                 </Link>
             </div>

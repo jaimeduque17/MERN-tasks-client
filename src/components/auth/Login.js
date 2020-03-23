@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alerts/alertContext';
+import AuthContext from '../../context/authentication/authContext';
 
 const Login = () => {
+
+    // Extract values of the context
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext;
+
+    const authContext = useContext(AuthContext);
+    const { message, auth, logIn } = authContext;
 
     // state for sign in
     const [user, saveUser] = useState({
@@ -24,13 +33,17 @@ const Login = () => {
         e.preventDefault();
 
         // validate that there are no empty fields
-
+        if (email.trim() === '' || password.trim() === '') {
+            showAlert('All fields are required', 'alert-error');
+        }
 
         // pass to the action
+        logIn({email, password});
     }
 
     return (
         <div className="form-user">
+            {alert ? (<div className={`alert ${alert.category}`}>{alert.msg}</div>) : null}
             <div className="container-form shadow-dark">
                 <h1>Sign in</h1>
                 <form

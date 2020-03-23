@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
 import clientAxios from '../../config/axios';
+import tokenAuth from '../../config/token';
 import {
     SIGNUP_SUCCESSFUL,
     SIGNUP_ERROR,
@@ -49,17 +50,42 @@ const AuthState = props => {
     // Return the authenticated user
     const userAuthenticated = async () => {
         const token = localStorage.getItem('token');
-        if(token) {
+        if (token) {
             // TODO: Function to send token by headers
-
+            tokenAuth(token);
         }
 
         try {
             const response = await clientAxios.get('/api/auth');
-            console.log(response);
+            // console.log(response);
+            dispatch({
+                type: GET_USER,
+                payload: response.data.user
+            });
+
         } catch (error) {
+            console.log(error.response);
             dispatch({
                 type: LOGIN_ERROR
+            })
+        }
+    }
+
+    // When the user log in
+    const logIn = async data => {
+        try {
+            const response = await clientAxios.post('/api/auth', data);
+            console.log(response);
+        } catch (error) {
+            console.log(error.response.data.msg);
+            const alert = {
+                msg: error.response.data.msg,
+                category: 'alert-error'
+            }
+
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: alert
             })
         }
     }
@@ -71,7 +97,8 @@ const AuthState = props => {
                 auth: state.auth,
                 user: state.user,
                 message: state.message,
-                signupUser
+                signupUser,
+                logIn
             }}>
             {props.children}
         </AuthContext.Provider>
