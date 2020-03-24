@@ -87,6 +87,9 @@ a {
   display: block;
   background-color: transparent;
 }
+.close-session {
+  color: var(--white);
+}
 
 @media (min-width: 768px) {
   .container-app {

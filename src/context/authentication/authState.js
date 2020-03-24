@@ -76,12 +76,12 @@ const AuthState = props => {
     const logIn = async data => {
         try {
             const response = await clientAxios.post('/api/auth', data);
-            
+
             dispatch({
                 type: LOGIN_SUCCESSFUL,
                 payload: response.data
             });
-            
+
             // Get user
             userAuthenticated();
 
@@ -99,6 +99,13 @@ const AuthState = props => {
         }
     }
 
+    // Close session
+    const logOut = () => {
+        dispatch({
+            type: LOGOUT
+        })
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -107,7 +114,9 @@ const AuthState = props => {
                 user: state.user,
                 message: state.message,
                 signupUser,
-                logIn
+                logIn,
+                userAuthenticated,
+                logOut
             }}>
             {props.children}
         </AuthContext.Provider>

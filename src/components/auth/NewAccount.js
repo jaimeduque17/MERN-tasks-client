@@ -14,7 +14,7 @@ const NewAccount = (props) => {
 
     // If the sign up is duplicated
     useEffect(() => {
-        if (!!auth) {
+        if (auth) {
             props.history.push('/projects');
         }
         if(message) {
