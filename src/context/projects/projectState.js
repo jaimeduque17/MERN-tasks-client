@@ -1,11 +1,11 @@
 import React, { useReducer } from 'react';
 
-import uuid from 'uuid';
-
 import projectContext from './projectContext';
 import projectReducer from './projectReducer';
 
 import { FORM_PROJECT, GET_PROJECTS, ADD_PROJECT, VALIDATE_FORM, ACTUAL_PROJECT, DELETE_PROJECT } from '../../types';
+
+import ClientAxios from '../../config/axios';
 
 const ProjectState = props => {
 
@@ -42,14 +42,18 @@ const ProjectState = props => {
     }
 
     // Add new project
-    const addProject = project => {
-        project.id = uuid.v4();
-
-        // Insert the project in the state
-        dispatch({
-            type: ADD_PROJECT,
-            payload: project
-        })
+    const addProject = async project => {
+        try {
+            const result = await ClientAxios.post('/api/projects', project);
+            console.log(result);
+            // Insert the project in the state
+            dispatch({
+                type: ADD_PROJECT,
+                payload: result.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // Validate form
@@ -73,7 +77,7 @@ const ProjectState = props => {
             type: DELETE_PROJECT,
             payload: projectId
         })
-    } 
+    }
 
     return (
         <projectContext.Provider
