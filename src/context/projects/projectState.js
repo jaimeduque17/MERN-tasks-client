@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import projectContext from './projectContext';
 import projectReducer from './projectReducer';
 
-import { FORM_PROJECT, GET_PROJECTS, ADD_PROJECT, VALIDATE_FORM, ACTUAL_PROJECT, DELETE_PROJECT } from '../../types';
+import { FORM_PROJECT, GET_PROJECTS, ADD_PROJECT, VALIDATE_FORM, ACTUAL_PROJECT, DELETE_PROJECT, ERROR_PROJECT } from '../../types';
 
 import ClientAxios from '../../config/axios';
 
@@ -13,7 +13,8 @@ const ProjectState = props => {
         projects: [],
         form: false,
         errorform: false,
-        project: null
+        project: null,
+        message: null
     }
 
     // Dispatch to execute the actions
@@ -35,7 +36,14 @@ const ProjectState = props => {
                 payload: result.data.projects
             })
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'There was an error',
+                category: 'alert-error'
+            }
+            dispatch({
+                type: ERROR_PROJECT,
+                payload: alert
+            })
         }
     }
 
@@ -50,7 +58,14 @@ const ProjectState = props => {
                 payload: result.data
             })
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'There was an error',
+                category: 'alert-error'
+            }
+            dispatch({
+                type: ERROR_PROJECT,
+                payload: alert
+            })
         }
     }
 
@@ -78,7 +93,14 @@ const ProjectState = props => {
                 payload: projectId
             })
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'There was an error',
+                category: 'alert-error'
+            }
+            dispatch({
+                type: ERROR_PROJECT,
+                payload: alert
+            })
         }
     }
 
@@ -89,6 +111,7 @@ const ProjectState = props => {
                 form: state.form,
                 errorform: state.errorform,
                 project: state.project,
+                message: state.message,
                 showForm,
                 getProjects,
                 addProject,
