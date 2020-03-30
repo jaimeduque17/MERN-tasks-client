@@ -57,8 +57,7 @@ const FormTask = () => {
         // Check if is edition or is a new task
         if (taskselected === null) {
             // Add the new task to the task state
-            task.projectId = actualProject.id;
-            task.state = false;
+            task.project = actualProject._id;
             addTask(task);
         } else {
             // Update existent task
