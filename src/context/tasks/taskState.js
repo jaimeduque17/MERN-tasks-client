@@ -55,11 +55,16 @@ const TaskState = props => {
     }
 
     // Delete task by Id
-    const deleteTask = id => {
-        dispatch({
-            type: DELETE_TASK,
-            payload: id
-        })
+    const deleteTask = async (id, project) => {
+        try {
+            await ClientAxios.delete(`/api/tasks/${id}`, { params: { project } });
+            dispatch({
+                type: DELETE_TASK,
+                payload: id
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // Change the state of each task
